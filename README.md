@@ -1,3 +1,5 @@
+![build status](https://travis-ci.org/dan-gittik/foobar.svg?branch=master)
+
 # Foobar
 
 An example package.
