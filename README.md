@@ -1,10 +1,9 @@
 ![build status](https://travis-ci.org/dan-gittik/foobar.svg?branch=master)
 ![coverage](https://codecov.io/gh/dan-gittik/foobar/branch/master/graph/badge.svg)
 
-
 # Foobar
 
-An example package.
+An example package. See [full documentation](https://advanced-system-design-foobar.readthedocs.io/en/latest/).
 
 ## Installation
 
