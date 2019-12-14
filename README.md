@@ -1,18 +1,17 @@
-![build status](https://travis-ci.org/dan-gittik/foobar.svg?branch=master)
-![coverage](https://codecov.io/gh/dan-gittik/foobar/branch/master/graph/badge.svg)
 
-# Foobar
 
-An example package. See [full documentation](https://advanced-system-design-foobar.readthedocs.io/en/latest/).
+# Thought System
+
+A submission project for the Advanced Systems Design class in Tel Aviv University
 
 ## Installation
 
 1. Clone the repository and enter it:
 
     ```sh
-    $ git clone git@github.com:dan-gittik/foobar.git
+    $ git clone git@github.com:advanced-system-design/project-3123350812.git
     ...
-    $ cd foobar/
+    $ cd project-312350812/
     ```
 
 2. Run the installation script and activate the virtual environment:
@@ -21,52 +20,30 @@ An example package. See [full documentation](https://advanced-system-design-foob
     $ ./scripts/install.sh
     ...
     $ source .env/bin/activate
-    [foobar] $ # you're good to go!
     ```
 
 3. To check that everything is working as expected, run the tests:
 
 
-    ```sh
+
     $ pytest tests/
-    ...
-    ```
+
 
 ## Usage
 
-The `foobar` packages provides the following classes:
+The `thought_system` package provides the following classes:
 
-- `Foo`
+- `Thought`
 
-    This class encapsulates the concept of `foo`, and returns `"foo"` when run.
-
-    In addition, it provides the `inc` method to increment integers, and the
-    `add` method to sum them.
+   Description goes here
 
     ```pycon
-    >>> from foobar import Foo
-    >>> foo = Foo()
-    >>> foo.run()
-    'foo'
-    >>> foo.inc(1)
-    2
-    >>> foo.add(1, 2)
-    3
+    Sample code goes here
     ```
 
-- `Bar`
 
-    This class encapsulates the concept of `bar`; it's very similar to `Foo`,
-    except it returns `"bar"` when run.
 
-    ```pycon
-    >>> from foobar import Bar
-    >>> bar = Bar()
-    >>> bar.run()
-    'bar'
-    ```
-
-The `foobar` package also provides a command-line interface:
+The `thought_system` package also provides a command-line interface:
 
 ```sh
 $ python -m foobar
