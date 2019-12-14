@@ -24,10 +24,9 @@ A submission project for the Advanced Systems Design class in Tel Aviv Universit
 
 3. To check that everything is working as expected, run the tests:
 
-
-
+    ```sh
     $ pytest tests/
-
+    ```
 
 ## Usage
 
