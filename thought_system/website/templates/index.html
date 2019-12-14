@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Brain Computer Interface</title>
+{% endblock %}
+
+{% block body %}
+
+{% for user in users %}
+<li><a href="/users/{{user}}">user {{user}}</a></li>
+{% endfor %}
+
+
+{% endblock %}
