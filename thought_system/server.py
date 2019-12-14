@@ -17,7 +17,6 @@ class Handler(threading.Thread):
         self.data_dir = data_dir
 
     def run(self):
-        time.sleep(1)
         full_msg = b''
         while True:
             curr = self.connection.receive(8)
