@@ -37,10 +37,11 @@ def serve(address, data_dir):
 @main.command('serve-web')
 @click.argument('address', type=str)
 @click.argument('data_dir', type=str)
-def serve_web(address, data_dir):
-    click.echo(f'Starting a webserver on {address} which reads data from {data_dir}')
+@click.option('-d', '--debug', is_flag=True)
+def serve_web(address, data_dir, debug=False):
+    click.echo(f'Starting a webserver on {address} which reads data from {data_dir} {"with debugging" if debug else ""}')
     addr_param = addr_string_to_tuple(address)
-    run_webserver(addr_param, data_dir)
+    run_webserver(addr_param, data_dir, debug)
 
 
 if __name__ == '__main__':

@@ -45,64 +45,32 @@ The `thought_system` package provides the following classes:
 The `thought_system` package also provides a command-line interface:
 
 ```sh
-$ python -m foobar
-foobar, version 0.1.0
+$ python -m thought_system
 ```
 
-All commands accept the `-q` or `--quiet` flag to suppress output, and the `-t`
-or `--traceback` flag to show the full traceback when an exception is raised
-(by default, only the error message is printed, and the program exits with a
-non-zero code).
 
-The CLI provides the `foo` command, with the `run`, `add` and `inc`
-subcommands:
+The CLI provides the `upload-thought`, `serve` and `serve-web` subcommands
 
 ```sh
-$ python -m foobar foo run
-foo
-$ python -m foobar foo inc 1
-2
-$ python -m foobar foo add 1 2
-3
+$ python -m thought_system upload-thought 0.0.0.0:3000 1 "Hello there"
+Uploading to 0.0.0.0:3000 a thought by user 1
+
+$ python -m thought_system serve 0.0.0.0:3000 "./tmp"
+Starting a server on 0.0.0.0:3000 which stores data in ./tmp
+
+
+$ python -m thought_system serve-web 0.0.0.0:3000 "./tmp" -d
+Starting a webserver on 0.0.0.0:3000 which reads data from ./tmp with debugging
+ * Serving Flask app "thought_system.website.webserver" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:3000/ (Press CTRL+C to quit)
+ * Restarting with stat
+Starting a webserver on 0.0.0.0:3000 which reads data from ./tmp with debugging
+ * Debugger is active!
+ * Debugger PIN: 300-823-397
+
 ```
 
-The CLI further provides the `bar` command, with the `run` and `error`
-subcommands.
-
-Curiously enough, `bar`'s `run` subcommand accepts the `-o` or `--output`
-option to write its output to a file rather than the standard output, and the
-`-u` or `--uppercase` option to do so in uppercase letters.
-
-```sh
-$ python -m foobar bar run
-bar
-$ python -m foobar bar run -u
-BAR
-$ python -m foobar bar run -o output.txt
-$ cat output.txt
-BAR
-```
-
-Do note that each command's options should be passed to *that* command, so for
-example the `-q` and `-t` options should be passed to `foobar`, not `foo` or
-`bar`.
-
-```sh
-$ python -m foobar bar run -q # this doesn't work
-ERROR: no such option: -q
-$ python -m foobar -q bar run # this does work
-```
-
-To showcase these options, consider `bar`'s `error` subcommand, which raises an
-exception:
-
-```sh
-$ python -m foobar bar error
-ERROR: something went terribly wrong :[
-$ python -m foobar -q bar error # suppress output
-$ python -m foobar -t bar error # show full traceback
-ERROR: something went terribly wrong :[
-Traceback (most recent call last):
-    ...
-RuntimeError: something went terrible wrong :[
-```

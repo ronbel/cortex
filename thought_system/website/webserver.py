@@ -9,7 +9,7 @@ def format_timestamp_name(name):
     return ' '.join(split_name)
 
 
-def run_webserver(address, data_path):
+def run_webserver(address, data_path, debug=True):
     server = Flask(__name__)
     data_dir = pathlib.Path(data_path)
 
@@ -27,4 +27,4 @@ def run_webserver(address, data_path):
                              open(file).readlines()])
         return render_template('user-page.html', thoughts=thoughts)
 
-    server.run(host=address[0], port=address[1], debug=True)
+    server.run(host=address[0], port=address[1], debug=debug)
