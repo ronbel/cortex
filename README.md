@@ -34,10 +34,17 @@ The `thought_system` package provides the following classes:
 
 - `Thought`
 
-   Description goes here
+   A class that encapsulates the thought object
 
     ```pycon
-    Sample code goes here
+    >>> t1 = Thought(1, datetime.datetime.now(), 'General Kenobi!')
+    >>> t1.user_id
+    1
+    >>> t1.timestamp
+    datetime.datetime(2019, 12, 15, 12, 19, 38, 341471)
+    >>> t1.thought
+    'General Kenobi!'
+
     ```
 
 
@@ -50,6 +57,16 @@ $ python -m thought_system
 
 
 The CLI provides the `upload-thought`, `serve` and `serve-web` subcommands
+
+`upload-thought <Address> <User ID> <Thought>`: Uploads a given `Thought` with the ID of
+the user given by `User ID` to the server on `Address`
+
+`serve <Address> <Data Dir>`: Starts a server on `Address` that stores thoughts uploaded
+to it in `Data Dir`
+
+`serve-web <Address> <Data Dir> [-d\--debug]`: Starts a server that serves a web interface
+for the system on `Address`, reads data from `Data Dir`. Use `-d` 
+or `--debug` to enable debugging on the server
 
 ```sh
 $ python -m thought_system upload-thought 0.0.0.0:3000 1 "Hello there"
