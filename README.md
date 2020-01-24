@@ -9,7 +9,7 @@ A submission project for the Advanced Systems Design class in Tel Aviv Universit
 1. Clone the repository and enter it:
 
     ```sh
-    $ git clone git@github.com:advanced-system-design/project-3123350812.git
+    $ git clone git@github.com:ronbel/project-3123350812.git
     ...
     $ cd project-312350812/
     ```
