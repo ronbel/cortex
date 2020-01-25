@@ -1,6 +1,6 @@
 
 
-# Thought System
+# Cortex
 
 A submission project for the Advanced Systems Design class in Tel Aviv University
 
@@ -9,9 +9,9 @@ A submission project for the Advanced Systems Design class in Tel Aviv Universit
 1. Clone the repository and enter it:
 
     ```sh
-    $ git clone git@github.com:ronbel/project-3123350812.git
+    $ git clone git@github.com:ronbel/cortex.git
     ...
-    $ cd project-312350812/
+    $ cd cortex/
     ```
 
 2. Run the installation script and activate the virtual environment:
@@ -30,7 +30,7 @@ A submission project for the Advanced Systems Design class in Tel Aviv Universit
 
 ## Usage
 
-The `thought_system` package provides the following classes:
+The `cortex` package provides the following classes:
 
 - `Thought`
 
@@ -49,10 +49,10 @@ The `thought_system` package provides the following classes:
 
 
 
-The `thought_system` package also provides a command-line interface:
+The `cortex` package also provides a command-line interface:
 
 ```sh
-$ python -m thought_system
+$ python -m cortex
 ```
 
 
@@ -69,16 +69,16 @@ for the system on `Address`, reads data from `Data Dir`. Use `-d`
 or `--debug` to enable debugging on the server
 
 ```sh
-$ python -m thought_system upload-thought 0.0.0.0:3000 1 "Hello there"
+$ python -m cortex upload-thought 0.0.0.0:3000 1 "Hello there"
 Uploading to 0.0.0.0:3000 a thought by user 1
 
-$ python -m thought_system serve 0.0.0.0:3000 "./tmp"
+$ python -m cortex serve 0.0.0.0:3000 "./tmp"
 Starting a server on 0.0.0.0:3000 which stores data in ./tmp
 
 
-$ python -m thought_system serve-web 0.0.0.0:3000 "./tmp" -d
+$ python -m cortex serve-web 0.0.0.0:3000 "./tmp" -d
 Starting a webserver on 0.0.0.0:3000 which reads data from ./tmp with debugging
- * Serving Flask app "thought_system.website.webserver" (lazy loading)
+ * Serving Flask app "cortex.website.webserver" (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
    Use a production WSGI server instead.
