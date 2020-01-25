@@ -13,6 +13,3 @@ def upload_thought(address, user, thought):
     conn.send(new_thought.serialize())
 
     conn.close()
-
-
-
