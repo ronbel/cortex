@@ -4,7 +4,7 @@ from pymongo import MongoClient
 DB_NAME = 'cortex-db'
 
 
-def run_api_server(host='localhost', port='8000', database_url='mongodb://localhost:27017'):
+def run_api_server(host='localhost', port='5000', database_url='mongodb://localhost:27017'):
     server = Flask(__name__)
     db = MongoClient(database_url)[DB_NAME]
     users = db.users
@@ -21,7 +21,4 @@ def run_api_server(host='localhost', port='8000', database_url='mongodb://localh
             return make_response('User not found\n', 404)
         return make_response(jsonify(result), 200)
 
-    server.run(host=host, port=port, debug=True)
-
-
-run_api_server()
+    server.run(host=host, port=port)
