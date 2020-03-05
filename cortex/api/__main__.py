@@ -8,10 +8,10 @@ def main():
 
 
 @main.command('run-server')
-@click.option('-h', '--host')
-@click.option('-p', '--port')
-@click.option('-d', '--database')
-def run_api(host='localhost', port='5000', database='mongodb://localhost:27017'):
+@click.option('-h', '--host', default = 'localhost')
+@click.option('-p', '--port', default = '5000')
+@click.option('-d', '--database', default = 'mongodb://localhost:27017')
+def run_api(host, port, database):
     run_api_server(host=host, port=port, database_url=database)
 
 
