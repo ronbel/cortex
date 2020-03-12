@@ -15,7 +15,7 @@ class JsonMessageMaker:
 
         snap_dict = json_format.MessageToDict(snapshot)
 
-        snap_dict['colorImage']['data'] = self.file_saver.save_file(f'{snap_id}_color.raw', snapshot.color_image.data)
-        snap_dict['depthImage']['data'] = self.file_saver.save_file(f'{snap_id}_depth.raw', np.array(snapshot.depth_image.data,'float').tostring())
+        snap_dict['colorImage']['data'] = self.file_saver.save_file(f'{snap_id}_color.data', snapshot.color_image.data)
+        snap_dict['depthImage']['data'] = self.file_saver.save_file(f'{snap_id}_depth.data', np.array(snapshot.depth_image.data,'float').tostring())
 
         return json.dumps({'user_info': user_dict, 'snapshot_id': snap_id, **snap_dict})

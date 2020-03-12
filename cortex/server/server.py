@@ -41,8 +41,8 @@ def run_server(publish ,host='localhost', port=8000 , *, mq_address='rabbitmq://
             return make_response('Could not read data. Make sure it is in the following binary format: <user_len><serialized_user><serialized_snapshot>', 401)
         
         message = message_maker.make_message(user, snapshot)
-        print(message)
-        channel.basic_publish(exchange = 'cortex', routing_key = 'parse', body=message)
+        routing_key = f'parse.{".".join([field[0].name for field in snapshot.ListFields() if field[0].name != "datetime"])}'
+        channel.basic_publish(exchange = 'cortex', routing_key = routing_key, body=message)
         return make_response('Ok', 200)
 
       
