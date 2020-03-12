@@ -14,4 +14,4 @@ def parse(snapshot):
         image.save(
             f'{os.path.dirname(data_file.name)}/{snapshot["snapshot_id"]}_color', 'png')
         snapshot['color_image']['data'] = f'{os.path.dirname(data_file.name)}/{snapshot["snapshot_id"]}_color.png'
-        return json.dumps({'user_info': snapshot['user_info'], 'snapshot_id': snapshot['snapshot_id'], 'color_image': snaphot['color_image']})
+        return json.dumps({'user_info': snapshot['user_info'], 'snapshot_id': snapshot['snapshot_id'], 'color_image': snapshot['color_image']})
