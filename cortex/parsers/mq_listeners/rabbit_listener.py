@@ -14,6 +14,7 @@ def rabbit_listener(host,port,parser):
         exchange='cortex', queue=parser._field, routing_key=f'parse.#.{parser._field}.#')
 
     def callback(ch, method, properties, body):
+        print(f'Parsing {parser._field} for snapshot')
         channel.basic_publish(
             exchange='cortex', routing_key=f'save.{parser._field}', body=parser(body))
     

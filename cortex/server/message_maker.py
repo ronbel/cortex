@@ -8,14 +8,14 @@ class JsonMessageMaker:
         self.file_saver = file_saver
     
     def make_message(self, user, snapshot):
-        user_dict = json_format.MessageToDict(user)
+        user_dict = json_format.MessageToDict(user, preserving_proto_field_name=True)
         user_dict['gender'] = user.gender
 
         snap_id = str(uuid.uuid4())
 
-        snap_dict = json_format.MessageToDict(snapshot)
+        snap_dict = json_format.MessageToDict(snapshot,  preserving_proto_field_name=True)
 
-        snap_dict['colorImage']['data'] = self.file_saver.save_file(f'{snap_id}_color.data', snapshot.color_image.data)
-        snap_dict['depthImage']['data'] = self.file_saver.save_file(f'{snap_id}_depth.data', np.array(snapshot.depth_image.data,'float').tostring())
+        snap_dict['color_image']['data'] = self.file_saver.save_file(f'{snap_id}_color.data', snapshot.color_image.data)
+        snap_dict['depth_image']['data'] = self.file_saver.save_file(f'{snap_id}_depth.data', np.array(snapshot.depth_image.data,'float').tostring())
 
         return json.dumps({'user_info': user_dict, 'snapshot_id': snap_id, **snap_dict})
