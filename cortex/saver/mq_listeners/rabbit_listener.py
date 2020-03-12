@@ -1,9 +1,11 @@
 import pika
 import json
+from . import listener
 
-def run_saver(mq_url, saver):
+@listener('rabbitmq')
+def run_rabbit(host, port, saver):
     connection = pika.BlockingConnection(
-        pika.ConnectionParameters(host='localhost'))
+        pika.ConnectionParameters(host=host, port=port))
 
     channel = connection.channel()
 

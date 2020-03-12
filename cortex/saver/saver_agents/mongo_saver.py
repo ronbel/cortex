@@ -1,6 +1,7 @@
 from pymongo import MongoClient
+from . import saver
 
-
+@saver('mongodb')
 class MongoSaver:
 
     def __init__(self, db_url):
