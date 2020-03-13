@@ -1,5 +1,6 @@
 import requests
 import click
+import json
 
 
 
@@ -51,7 +52,7 @@ def get_result(host,port, save, user_id, snapshot_id, result):
     if save:
         with open(save, 'w') as f:
             try:
-                f.write(str(query_result))
+                f.write(json.dumps(query_result))
                 print(f'Result saved to {save}')
             except:
                 print('Save failed')
