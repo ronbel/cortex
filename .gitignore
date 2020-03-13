@@ -5,3 +5,4 @@ foobar/
 bdika.py
 tmp/
 .vscode/
+cortex/gui/cortex-gui/node_modules
