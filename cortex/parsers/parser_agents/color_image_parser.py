@@ -6,7 +6,6 @@ import os
 
 @parser('color_image')
 def parse(snapshot):
-    snapshot = json.loads(snapshot)
     with open(snapshot['color_image']['data'], 'rb') as data_file:
         data = data_file.read()
         size = snapshot['color_image']['width'], snapshot['color_image']['height']

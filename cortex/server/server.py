@@ -1,6 +1,6 @@
 from flask import Flask, make_response, request
 from .cortex_pb2 import User, Snapshot
-from .file_saver import FileSaver
+from .file_saver import BinaryFileSaver
 from .message_maker import JsonMessageMaker
 import os
 from furl import furl
@@ -9,12 +9,6 @@ import json
 import uuid
 
 
-def mq_connect(host, port):
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=host, port=port))
-    channel = connection.channel()
-    channel.exchange_declare(exchange='cortex', exchange_type='topic')
-    return channel
-
 def parse_data(binary):
     user_len = int.from_bytes(binary[:4], 'little')
     user = User.FromString(binary[4:4+user_len])
@@ -22,30 +16,42 @@ def parse_data(binary):
     return (user, snapshot)
 
 
-   
+def default_publish(user, snapshot):
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(host=globals()['mq_host'], port=globals()['mq_port']))
+    channel = connection.channel()
 
-def run_server(publish ,host='localhost', port=8000 , *, mq_address='rabbitmq://localhost:5672'):
-    server = Flask(__name__)
-    file_saver = FileSaver(os.environ.get('SHARED_SAVE_PATH','/home/user/my_project/tmp'))
+    channel.exchange_declare(exchange='cortex', exchange_type='topic')
+
+    file_saver = BinaryFileSaver(os.environ.get(
+        'SHARED_SAVE_PATH', '/home/user/my_project/tmp'))
     message_maker = JsonMessageMaker(file_saver)
 
-    mq_url = furl(mq_address)
-    channel = mq_connect(mq_url.host, mq_url.port)
+    message = message_maker.make_message(user, snapshot)
+    routing_key = f'parse.{".".join([field[0].name for field in snapshot.ListFields() if field[0].name != "datetime"])}'
+    channel.basic_publish(
+        exchange='cortex', routing_key=routing_key, body=message)
+    connection.close()
 
-    
+
+def run_server(host='localhost', port=8000, publish=default_publish, *, mq_address='rabbitmq://localhost:5672'):
+    server = Flask(__name__)
+    mq_url = furl(mq_address)
+
+    if mq_url.scheme != 'rabbitmq':
+        raise Exception('The server CLI supports only message queues with the rabbitmq scheme. If you wish to use another message queue, create your own publish function and pass it throught the API (see documentation)')
+
+    globals()['mq_host'] = mq_url.host
+    globals()['mq_port'] = mq_url.port
+
     @server.route('/snapshots/upload', methods=['POST'])
     def upload_snapshot():
         try:
             user, snapshot = parse_data(request.data)
         except:
             return make_response('Could not read data. Make sure it is in the following binary format: <user_len><serialized_user><serialized_snapshot>', 401)
-        
-        message = message_maker.make_message(user, snapshot)
-        routing_key = f'parse.{".".join([field[0].name for field in snapshot.ListFields() if field[0].name != "datetime"])}'
-        channel.basic_publish(exchange = 'cortex', routing_key = routing_key, body=message)
+
+        publish(user, snapshot)
         return make_response('Ok', 200)
-
-      
-
 
     server.run(host=host, port=port, threaded=True)

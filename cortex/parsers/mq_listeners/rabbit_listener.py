@@ -1,5 +1,6 @@
 from . import listener
 import pika
+import json
 
 @listener('rabbitmq')
 def rabbit_listener(host,port,parser):
@@ -14,9 +15,10 @@ def rabbit_listener(host,port,parser):
         exchange='cortex', queue=parser._field, routing_key=f'parse.#.{parser._field}.#')
 
     def callback(ch, method, properties, body):
-        print(f'Parsing {parser._field} for snapshot')
+        message = json.loads(body)
+        print(f'Parsing {parser._field} for snapshot {message["snapshot_id"]}')
         channel.basic_publish(
-            exchange='cortex', routing_key=f'save.{parser._field}', body=parser(body))
+            exchange='cortex', routing_key=f'save.{parser._field}', body=parser(message))
     
     channel.basic_consume(
     queue=parser._field, on_message_callback=callback, auto_ack=True)

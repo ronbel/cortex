@@ -1,6 +1,6 @@
 
 
-class FileSaver:
+class BinaryFileSaver:
     def __init__(self,dir):
         self.dir = dir
     
