@@ -43,6 +43,7 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
+  overflow: hidden;
 }
 
  .screen-leave-active, .screen-enter-active {
@@ -77,5 +78,6 @@ export default {
             filter: brightness(1.7);
         }
     }
+
 
 </style>

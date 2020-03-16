@@ -1,5 +1,6 @@
 import Home from './views/Home.vue'
 import About from './views/About.vue'
+import Users from './views/Users.vue'
 
 export const routes = [
     {
@@ -13,8 +14,8 @@ export const routes = [
         name: 'About'
     },
     {
-        path: '/todos',
-       // component: Todos,
-        name: 'Todos'
+        path: '/users',
+        component: Users,
+        name: 'Users'
     }
 ]
