@@ -54,8 +54,7 @@ export default {
           this.usersList = data;
           this.usersReady = true;
         }, 1500);
-      })
-      .catch(e => console.log(e.message));
+      });
   }
 };
 </script>

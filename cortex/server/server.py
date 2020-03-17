@@ -31,6 +31,13 @@ def default_publish(user, snapshot):
     routing_key = f'parse.{".".join([field[0].name for field in snapshot.ListFields() if field[0].name != "datetime"])}'
     channel.basic_publish(
         exchange='cortex', routing_key=routing_key, body=message)
+    
+    snapshot_id , user_info = ((x := json.loads(message))['snapshot_id'], x['user_info'])
+
+    channel.basic_publish(
+        exchange='cortex', routing_key='save.datetime', body=json.dumps({'user_info': user_info, 'snapshot_id': snapshot_id, 'datetime': snapshot.datetime}))
+
+
     connection.close()
 
 
