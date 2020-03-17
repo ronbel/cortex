@@ -6,10 +6,7 @@
     </div>
     <div class="size">Size: {{`${imageInfo.width}x${imageInfo.height}`}}</div>
     <img :src="imageUrl" class="image" v-show="showImage" />
-    <div
-      @click="showImage = !showImage"
-      class="show-button"
-    >{{`${showImage ? 'Hide' : 'Show'} Image`}}</div>
+    <div @click="toggleImage" class="show-button">{{`${showImage ? 'Hide' : 'Show'} Image`}}</div>
   </div>
 </template>
 
@@ -28,6 +25,7 @@ export default {
       error: false,
       imageReady: false,
       imageInfo: { width: "", height: "" },
+      imageUrl: ""
     };
   },
   components: { Loading },
@@ -46,9 +44,16 @@ export default {
       })
       .catch(() => (this.error = true));
   },
-  computed: {
-    imageUrl() {
-      return getSnapshotResultDataUrl(this.$props.userId, this.$props.snapshotId, this.$props.type);
+  methods: {
+    toggleImage() {
+      this.showImage = !this.showImage;
+      if (!this.imageUrl) {
+        getSnapshotResultDataUrl(
+          this.$props.userId,
+          this.$props.snapshotId,
+          this.$props.type
+        ).then(data => (this.imageUrl = data));
+      }
     }
   }
 };
