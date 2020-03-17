@@ -4,14 +4,20 @@
 
     <div class="users-section">
       <h1 class="users-title">User List</h1>
-      <Loading v-show="false" />
-      <div class="user-list">
-      <UserCard @snapshot-open="selectUser" />
+      <Loading v-if="!usersReady" />
+      <div v-else class="user-list">
+        <UserCard
+          v-for="user in usersList"
+          :key="user.user_id"
+          :user="user"
+          @snapshot-open="selectUser"
+          :isSelected="selectedUser === user.user_id"
+        />
       </div>
     </div>
 
     <transition name="slide">
-      <SnapshotSection v-if="snapshotsUser !== null" @close="selectUser(null)" />
+      <SnapshotSection :userId="selectedUser" v-if="selectedUser !== null" @close="selectUser(null)" />
     </transition>
   </div>
 </template>
@@ -21,22 +27,35 @@
 import Loading from "../components/Loading";
 import UserCard from "../components/UserCard";
 import SnapshotSection from "../components/SnapshotSection";
+import { getUsers } from "../services/api.service";
 
 export default {
   data() {
     return {
-      snapshotsUser: null
+      selectedUser: null,
+      usersReady: false,
+      usersList: []
     };
   },
   components: {
     Loading,
     UserCard,
-   SnapshotSection
+    SnapshotSection
   },
   methods: {
     selectUser(id) {
-      this.snapshotsUser = this.snapshotsUser === id ? null : id;
+      this.selectedUser = this.selectedUser === id ? null : id;
     }
+  },
+  created() {
+    getUsers()
+      .then(data => {
+        setTimeout(() => {
+          this.usersList = data;
+          this.usersReady = true;
+        }, 1500);
+      })
+      .catch(e => console.log(e.message));
   }
 };
 </script>
@@ -74,14 +93,14 @@ export default {
   color: var(--main-color);
 }
 
-.user-list{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-row-gap: 15px;
-    overflow-y: scroll;
-    flex: 1;
+.user-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 15px;
+  overflow-y: scroll;
+  flex: 1;
 
-    &::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #f5f5f5;
     border-radius: 10px;
@@ -96,11 +115,8 @@ export default {
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: var(--main-color);
-
   }
 }
-
-
 
 .slide-leave-active,
 .slide-enter-active {

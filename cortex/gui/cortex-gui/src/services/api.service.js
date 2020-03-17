@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const api = axios.create({baseURL: '/api'})
+const baseURL = process.env.BASE_URL;
+
+const api = axios.create({baseURL})
 
 export async function getUsers(){
     return (await api.get('/users')).data;
@@ -20,4 +22,8 @@ export async function getSnapshot(userId, snapshotId){
 
 export async function getSnapshotResult(userId, snapshotId, resultName){
     return (await api.get(`/users/${userId}/snapshots/${snapshotId}/${resultName}`)).data;
+}
+
+export function getSnapshotResultDataUrl(userId, snapshotId, resultName){
+    return `${baseURL}users/${userId}/snapshots/${snapshotId}/${resultName}/data`;
 }

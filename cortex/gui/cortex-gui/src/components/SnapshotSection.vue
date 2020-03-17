@@ -2,32 +2,64 @@
   <div class="snapshots-section">
     <div @click="$emit('close')" class="close" />
     <h1>Snapshots</h1>
-    <h2>Of Specimen #42</h2>
+    <h2>{{`Of Specimen #${userId}`}}</h2>
 
-    <div v-if="selectedSnapshot === null" class="snapshots-grid">
-      <SnapshotCard @click="setSnapshot" />
-    </div>
+    <Loading v-if="!snapshotsReady" />
+    <transition-group
+      @after-appear="removeDelay"
+      @before-appear="addDelay"
+      appear
+      name="flying"
+      v-else-if="selectedSnapshot === null"
+      class="snapshots-grid"
+    >
+      <SnapshotCard
+        v-for="(snapshot, index) in snapshotsList"
+        :data-index="index"
+        :key="snapshot._id"
+        :snapshot="snapshot"
+        @click="setSnapshot"
+      />
+    </transition-group>
 
-    <SnapshotDetails @back="setSnapshot(null)" v-else/>
+    <SnapshotDetails :snapshotId="selectedSnapshot" :userId="userId" @back="setSnapshot(null)" v-else />
   </div>
 </template>
 
 <script>
 import SnapshotCard from "./SnapshotCard";
-import SnapshotDetails from "./SnapshotDetails"
+import SnapshotDetails from "./SnapshotDetails";
+import Loading from "./Loading";
+import { getUserSnapshots } from "../services/api.service";
 
 export default {
-    data(){
-        return {selectedSnapshot: null}
-    },
+  data() {
+    return { selectedSnapshot: null, snapshotsList: [], snapshotsReady: false };
+  },
+  props: ["userId"],
   components: {
     SnapshotCard,
-    SnapshotDetails
+    SnapshotDetails,
+    Loading
   },
   methods: {
-      setSnapshot(id){
-          this.selectedSnapshot = this.selectedSnapshot === id ? null: id;
-      }
+    setSnapshot(id) {
+      this.selectedSnapshot = this.selectedSnapshot === id ? null : id;
+    },
+    addDelay(el) {
+      el.style.transitionDelay = `${100 * el.dataset.index}ms`;
+    },
+    removeDelay(el) {
+      el.style["transition-delay"] = "0ms";
+    }
+  },
+  created() {
+    getUserSnapshots(this.$props.userId).then(data => {
+      setTimeout(() => {
+        this.snapshotsList = data;
+        this.snapshotsReady = true;
+      }, 1500);
+    });
   }
 };
 </script>
@@ -56,13 +88,13 @@ export default {
 
   .close {
     position: absolute;
-    top: 20px;
-    left: 35px;
+    top: 30px;
+    left: 45px;
     background-image: url("../assets/close.png");
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background-size:contain;
+    background-size: contain;
   }
 }
 
@@ -75,6 +107,7 @@ export default {
   padding-left: 25px;
   padding-right: 25px;
   overflow-y: scroll;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
@@ -91,7 +124,21 @@ export default {
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: var(--main-color);
-
   }
+}
+
+.flying-enter-active,
+.flying-leave-active {
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+.flying-enter,
+.flying-leave-to {
+  transform: translateX(200px);
+  opacity: 0;
+}
+.flying-enter-to,
+.flying-leave {
+  transform: translateX(0);
+  opacity: 1;
 }
 </style>

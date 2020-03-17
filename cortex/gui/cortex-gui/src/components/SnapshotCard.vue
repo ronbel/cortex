@@ -1,7 +1,7 @@
 <template>
-  <div @click="$emit('click', 'asfgavc')" class="card">
-      <p>Serial Number faf5-89a31-bbb4-15hf492197</p>
-      <h2>3/3/2020</h2>
+  <div @click="$emit('click', snapshot._id)" class="card">
+      <p>Serial Number {{snapshot._id}}</p>
+      <h2>{{new Date(snapshot.datetime).toLocaleString('en-GB')}}</h2>
       <img class="logo" src="../assets/cortex-logo.png"/>
       <p class="more-details">More Details</p>
   </div>
@@ -13,7 +13,8 @@ export default {
     return {
       expanded: false
     };
-  }
+  },
+  props: ['snapshot']
 };
 </script>
 

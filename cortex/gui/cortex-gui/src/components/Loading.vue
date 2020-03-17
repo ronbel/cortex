@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <div :style="containerStyle" class="box">
         <h2 :style="{color: 'white'}">Loading...</h2>
         <img class="pic" src="../assets/cortex-logo.png"/>
     </div>
@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    
+    props: ['containerStyle']
 }
 </script>
 
