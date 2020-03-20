@@ -24,7 +24,7 @@ def default_publish(user, snapshot):
     channel.exchange_declare(exchange='cortex', exchange_type='topic')
 
     file_saver = BinaryFileSaver(os.environ.get(
-        'SHARED_SAVE_PATH', '/home/user/my_project/tmp'))
+        'SHARED_SAVE_PATH', '/home/user/Cortex'))
     message_maker = JsonMessageMaker(file_saver)
 
     message = message_maker.make_message(user, snapshot)
