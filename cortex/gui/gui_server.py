@@ -13,7 +13,7 @@ def run_server(host='127.0.0.1', port=8080, api_host='localhost', api_port=5000)
     @app.route('/api/<path:path>')
     def api_call(path):
         if(path.endswith('data')):
-            return make_response(jsonify(f'http://{api_host}:{api_port}/{path}'),200)
+            return make_response(jsonify(f'http://{api_host if api_host != "api" else "localhost"}:{api_port}/{path}'),200)
         return make_response(jsonify(requests.get(f'http://{api_host}:{api_port}/{path}').json()), 200)
 
     @app.route('/')
