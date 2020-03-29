@@ -5,7 +5,7 @@ from . import listener
 @listener('rabbitmq')
 def run_rabbit(host, port, saver):
     connection = pika.BlockingConnection(
-        pika.ConnectionParameters(host=host, port=port))
+        pika.ConnectionParameters(host=host, port=port, retry_delay=10, connection_attempts=10))
 
     channel = connection.channel()
 

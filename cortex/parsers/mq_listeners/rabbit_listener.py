@@ -5,7 +5,7 @@ import json
 @listener('rabbitmq')
 def rabbit_listener(host,port,parser):
     connection = pika.BlockingConnection(
-        pika.ConnectionParameters(host=host, port=port))
+        pika.ConnectionParameters(host=host, port=port, retry_delay=10, connection_attempts=10))
     channel = connection.channel()
 
     channel.exchange_declare(exchange='cortex', exchange_type='topic')
