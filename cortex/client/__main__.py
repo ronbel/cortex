@@ -1,5 +1,5 @@
 import click
-from .client import upload_sample
+from . import upload_sample
 
 
 

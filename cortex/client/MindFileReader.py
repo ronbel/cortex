@@ -4,7 +4,6 @@ import gzip
 
 
 class MindFileReader(BaseReader):
-
     supported_formats = ('.mind', '.mind.gz')
 
     def __init__(self, filepath):
