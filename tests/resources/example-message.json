@@ -1,0 +1,28 @@
+{
+    "snapshot_id": "123",
+    "user_info": {
+        "user_id": 12,
+        "username": "Ron Belkin",
+        "birthday": 11111,
+        "gender": 0
+    },
+    "feelings":{
+        "happiness": 0.5,
+        "hunger": 0.4,
+        "thirst": 0.3,
+        "exhaustion": 0.2
+    },
+    "pose":{
+        "translation": {
+            "x": 0.3,
+            "y": 0.3,
+            "z": 0.5
+        },
+        "rotation": {
+            "x": 0.1,
+            "y": 0.2,
+            "z": 0.3,
+            "w": 0.4
+        }
+    }
+}

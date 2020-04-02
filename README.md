@@ -4,6 +4,13 @@
 
 A submission project for the Advanced Systems Design class in Tel Aviv University
 
+##Prerequisites
+    Python v3.8
+    Node v10.0.0+
+    npm v6.0.0+
+    Docker v 18.06+
+    docker-compose v1.20+
+
 ## Installation
 
 1. Clone the repository and enter it:
@@ -28,66 +35,13 @@ A submission project for the Advanced Systems Design class in Tel Aviv Universit
     $ pytest tests/
     ```
 
-## Usage
+## Quick Start
 
-The `cortex` package provides the following classes:
-
-- `Thought`
-
-   A class that encapsulates the thought object
-
-    ```pycon
-    >>> t1 = Thought(1, datetime.datetime.now(), 'General Kenobi!')
-    >>> t1.user_id
-    1
-    >>> t1.timestamp
-    datetime.datetime(2019, 12, 15, 12, 19, 38, 341471)
-    >>> t1.thought
-    'General Kenobi!'
-
-    ```
-
-
-
-The `cortex` package also provides a command-line interface:
-
+To run all the services together, simply enter:
 ```sh
-$ python -m cortex
+$ docker-compose up -d
 ```
+When all services are running, you can access the user interface via `http://localhost:8080`
 
-
-The CLI provides the `upload-thought`, `serve` and `serve-web` subcommands
-
-`upload-thought <Address> <User ID> <Thought>`: Uploads a given `Thought` with the ID of
-the user given by `User ID` to the server on `Address`
-
-`serve <Address> <Data Dir>`: Starts a server on `Address` that stores thoughts uploaded
-to it in `Data Dir`
-
-`serve-web <Address> <Data Dir> [-d\--debug]`: Starts a server that serves a web interface
-for the system on `Address`, reads data from `Data Dir`. Use `-d` 
-or `--debug` to enable debugging on the server
-
-```sh
-$ python -m cortex upload-thought 0.0.0.0:3000 1 "Hello there"
-Uploading to 0.0.0.0:3000 a thought by user 1
-
-$ python -m cortex serve 0.0.0.0:3000 "./tmp"
-Starting a server on 0.0.0.0:3000 which stores data in ./tmp
-
-
-$ python -m cortex serve-web 0.0.0.0:3000 "./tmp" -d
-Starting a webserver on 0.0.0.0:3000 which reads data from ./tmp with debugging
- * Serving Flask app "cortex.website.webserver" (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: on
- * Running on http://0.0.0.0:3000/ (Press CTRL+C to quit)
- * Restarting with stat
-Starting a webserver on 0.0.0.0:3000 which reads data from ./tmp with debugging
- * Debugger is active!
- * Debugger PIN: 300-823-397
-
-```
+##Basic Usage
 
