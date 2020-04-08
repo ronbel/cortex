@@ -9,8 +9,8 @@ function main {
     find .env -name site-packages -exec bash -c 'echo "../../../../" > {}/self.pth' \;
     .env/bin/pip install -U pip
     .env/bin/pip install -r requirements.txt
-    sudo docker build  -t cortex-base:latest .
-    sudo npm install -g @vue/cli
+    docker build  -t cortex-base:latest .
+    npm install -g @vue/cli
     cd cortex/gui/cortex-gui
     npm install
     npm run build
