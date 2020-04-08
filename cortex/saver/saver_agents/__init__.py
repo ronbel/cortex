@@ -1,3 +1,8 @@
+"""
+This package stores all the saver classes that interact with different databases.
+By default, a saver for MongoDB exists. Additional savers can be added using the @saver decorator.
+"""
+
 
 from inspect import isclass, isfunction, getmembers
 import pathlib
@@ -7,6 +12,12 @@ import os
 
 
 def saver(scheme):
+    """
+    A decorator used to denote a class that can be used as a saver. By default, the constructor receives the database url.
+    Class decorated with this should implement the save function. See MongoSaver for an example.
+
+    :param scheme: The scheme of the database url that the saver connects to
+    """
     def decorator(saver):
         saver._scheme = scheme
         return saver

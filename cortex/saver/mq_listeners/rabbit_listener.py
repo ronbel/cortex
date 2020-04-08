@@ -4,6 +4,15 @@ from . import listener
 
 @listener('rabbitmq')
 def run_rabbit(host, port, saver):
+    """
+    A function that initalizes the saver service that listens to a RabbitMQ server.
+    Listens to the 'saver' queue for 'save.*' topic by default, and upon receiving message saved the field (*) into the appropriate snapshot in the DB
+
+
+    :param host: The host of the RabbitMQ server
+    :param port: The port of the RabbitMQ server
+    :param saver: An instance of the Saver class connecting to the appropriate DB
+    """
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(host=host, port=port, retry_delay=10, connection_attempts=10))
 

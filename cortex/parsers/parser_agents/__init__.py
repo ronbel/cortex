@@ -1,4 +1,10 @@
 
+"""
+This module is responsible for storing and collecting all the available parsers.
+To add a parser function or callable class, use the @parser decorator
+"""
+
+
 from inspect import isclass, isfunction, getmembers
 import pathlib
 import importlib
@@ -7,6 +13,14 @@ import os
 
 
 def parser(field):
+    """
+    The parser decorator. Decorate a function or a callable class with this and place it in the parser_agents folder and your parser will be available for use.
+
+    By default, when a parser's parsing function is called, it is passed a snapshot message as recieved from the message queue
+
+
+    :param field: The field name parsed by the parser
+    """
     def decorator(parser):
         parser._field = field
         return parser

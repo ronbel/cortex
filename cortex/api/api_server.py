@@ -10,6 +10,14 @@ DB_NAME = 'cortex-db'
 
 
 def run_api_server(host='localhost', port='5000', database_url='mongodb://localhost:27017'):
+    """
+    Initializes a REST API endpoint that connects to the given database and serves data from it
+
+    :param host: The host on which the API runs
+    :param port: The port on which the API runs
+    :param database_url: The url (with scheme) of the database from which the API serves data 
+
+    """
     server = Flask(__name__)
     CORS(server, resources={r"/*": {"origins": "*"}})
 

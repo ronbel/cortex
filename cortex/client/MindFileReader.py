@@ -4,6 +4,10 @@ import gzip
 
 
 class MindFileReader(BaseReader):
+    """
+    MindFileReader is a reader that reads from .mind and .mind.gz files
+    """
+
     supported_formats = ('.mind', '.mind.gz')
 
     def __init__(self, filepath):

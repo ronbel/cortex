@@ -4,6 +4,13 @@ import requests
 
 
 def run_server(host='127.0.0.1', port=8080, api_host='localhost', api_port=5000):
+    """ Initializes a server that serves the GUI and connects to a running instance of cortex.api
+
+    :param host: The host on which the GUI should run
+    :param port: The port on which the GUI should run
+    :param api_host: The address of a running instance of cortex.api
+    :param api_port: The port of a running instance of cortex.api 
+    """
     app = Flask(__name__,
                 static_folder="./cortex-gui/dist/",
                 template_folder="./cortex-gui/dist")

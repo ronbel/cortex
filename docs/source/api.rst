@@ -1,42 +1,32 @@
-Foobar API Reference
-====================
+api package
+===========
 
-This is Foobar's API reference.
+Subpackages
+-----------
 
-Foo
----
+.. toctree::
 
-.. class:: foobar.Foo
+   api.db_connectors
 
-    Encapsulates ``Foo`` objects.
+api.api\_server module
+----------------------
 
-    .. method:: run()
+.. automodule:: api.api_server
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-        Returns ``'foo'``.
+Module contents
+---------------
 
-    .. method:: inc(x)
+.. automodule:: api
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-        Returns ``x`` incremented by one.
+CLI
+----------------
 
-    .. method:: add(x, y)
-
-        Returns the sum of ``x`` and ``y``.
-
-Bar
----
-
-.. class:: foobar.Bar
-
-    Encapsulates ``Bar`` objects.
-
-    .. method:: run()
-
-        Returns ``'bar'``.
-
-    .. method:: inc(x)
-
-        Returns ``x`` incremented by one.
-
-    .. method:: add(x, y)
-
-        Returns the sum of ``x`` and ``y``.
+.. click:: api.__main__:main
+   :prog: python -m cortex.api
+   :show-nested:

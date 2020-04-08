@@ -10,10 +10,13 @@ def main():
 
 
 @main.command('save')
-@click.option('-d', '--database', default='mongodb://localhost:27017')
+@click.option('-d', '--database', default='mongodb://localhost:27017', help="The url (+scheme) of the database to save the result in")
 @click.argument('field')
 @click.argument('result_path')
 def save(field, result_path, database):
+    """
+    Receives a path to a result message (as received from a parser) file and a field name, saves the result to the specified database
+    """
     saver = Saver(database)
     with open(result_path, 'r') as f:
         data = f.read()
@@ -24,6 +27,9 @@ def save(field, result_path, database):
 @click.argument('database')
 @click.argument('mq')
 def run_service(database, mq):
+    """
+    Receives urls (+scheme) to a database and a message queue and runs the saver service, which listens to the queue and saves message to the database
+    """
     saver = Saver(database)
 
     mq = furl(mq)

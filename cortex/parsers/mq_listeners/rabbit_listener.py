@@ -4,6 +4,14 @@ import json
 
 @listener('rabbitmq')
 def rabbit_listener(host,port,parser):
+    """
+    A listener function that connects to a RabbitMQ server, listens to requests, parses them and publishes back a message with parsed data
+    The listener uses the field to listen to the topic 'parse.#.<field>.#' for parse requests and publishes them back with the 'save.<field>' topic
+
+    :param host: The host of the RabbitMQ server
+    :param port: The port of the RabbitMQ server
+    :param parser: A parser function or callable class, has a _field attribute that indicates which field it paarses
+    """
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(host=host, port=port, retry_delay=10, connection_attempts=10))
     channel = connection.channel()

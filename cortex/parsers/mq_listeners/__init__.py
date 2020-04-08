@@ -1,3 +1,8 @@
+"""
+This package stores all the listener functions that connect to different MQs when running parsers as a service
+Supports RabbitMQ by default, additional listeners can be added using the @listener decorator
+"""
+
 
 from inspect import isclass, isfunction, getmembers
 import pathlib
@@ -7,6 +12,12 @@ import os
 
 
 def listener(scheme):
+    """
+    A decorator used to denote a function or a callable class that serves as a listener to a MQ server.
+    By default, a function or callable class is passed host, port and parser (a function/class as indicated in parser_agents) as arguments
+
+    :param scheme: The scheme of the MQ server which the listener connects to
+    """
     def decorator(f):
         f._scheme = scheme
         return f

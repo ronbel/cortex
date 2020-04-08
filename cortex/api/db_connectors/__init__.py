@@ -1,4 +1,10 @@
 
+"""
+This package contains all the connector classes to enable the API to connect to different databases
+To add a connector to a new database, simply add a class to this folder and decorate it with @connector and your desired url scheme
+"""
+
+
 from inspect import isclass, isfunction, getmembers
 import pathlib
 import importlib
@@ -7,6 +13,12 @@ import os
 
 
 def connector(scheme):
+    """
+    A decorator function to decorate classes that connect to a certain type of database.
+    In case you want to use any database other than MongoDB, add a connector class similar to the given one, place it in the db_connectors subfolder and decorate it with this
+
+    :param scheme: The URL scheme that corresponds to the database that is being used by the connector
+    """
     def decorator(connector):
         connector._scheme = scheme
         return connector

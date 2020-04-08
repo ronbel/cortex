@@ -19,6 +19,14 @@ def validate_snapshot(binary_snapshot):
 
 
 def upload_sample(path, host='127.0.0.1', port=8000, *,  reader=Reader):
+    """
+    Reads a sample file and uploads all the snapshots in it to the cortex.server instance
+
+    :param path: The path to the sample file
+    :param host: The host of the cortex.server instance
+    :param port: The port of the cortex.server instance
+    :param reader: An optional reader class in case you want to read from a differently formatted file. See BaseReader doc.
+    """
     file_reader = reader(path)
     if not isinstance(file_reader, BaseReader):
         raise Exception(
