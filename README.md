@@ -76,4 +76,4 @@ $ docker build ./cortex/<module_name>
 
 ## Documentation
 
-You can view the full documentation here
+You can view the full documentation [here](https://cortex-rb.readthedocs.io/en/latest/index.html)
